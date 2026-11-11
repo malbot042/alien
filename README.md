@@ -20,9 +20,9 @@ Rastreros, escupidores de ácido, brutos que embisten, voladores (colmena) y nid
 ## Controles
 | Tecla | Acción |
 |---|---|
-| WASD / flechas | Moverse |
-| Ratón | Apuntar |
-| Clic izquierdo | Disparar |
+| WASD | Moverse |
+| Ratón + clic izquierdo | Apuntar y disparar |
+| Flechas | Apuntar y disparar (sin ratón, ideal con touchpad) |
 | Clic derecho / G | Granada |
 | 1 / 2 / Q / rueda | Cambiar arma |
 | R | Recargar |
@@ -30,6 +30,10 @@ Rastreros, escupidores de ácido, brutos que embisten, voladores (colmena) y nid
 | S | Bajar de plataforma |
 | P / Esc | Pausa |
 | M | Sonido |
+
+**Mando (gamepad):** stick izquierdo / cruceta mover · stick derecho apuntar · RT/RB disparar · A saltar · LT/Y granada · B/LB cambiar arma · X recargar · Start pausa.
+
+> **¿Usas touchpad?** Muchos portátiles desactivan el touchpad mientras se pulsan teclas ("rechazo de palma"), así que no podrás mover el puntero y caminar a la vez. Usa las **flechas** para apuntar/disparar, un ratón externo o un mando, o desactiva esa opción en los ajustes del touchpad del sistema.
 
 ## Jugar
 - **Online (GitHub Pages):** https://malbot042.github.io/alien/

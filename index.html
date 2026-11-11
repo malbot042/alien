@@ -336,7 +336,7 @@ function setFlame(on){if(AU.flameG)AU.flameG.gain.setTargetAtTime(on?0.4:0,AU.ct
 function toggleMute(){AU.on=!AU.on;if(AU.master)AU.master.gain.value=AU.on?0.55:0;}
 
 // ===================== ESTADO =====================
-const G={state:'title',sector:1,section:0,score:0,hi:0,t:0,frame:0,shake:0,msg:'',sub:'',msgT:0,transT:0,transSw:false,deadT:0,hurtFlash:0,kills:0,camx:0,camy:0,diff:1,spdMul:1,cap:18,spawnT:0,flowT:0,runSeed:1,newHi:false};
+const G={kaim:-Math.PI/2,state:'title',sector:1,section:0,score:0,hi:0,t:0,frame:0,shake:0,msg:'',sub:'',msgT:0,transT:0,transSw:false,deadT:0,hurtFlash:0,kills:0,camx:0,camy:0,diff:1,spdMul:1,cap:18,spawnT:0,flowT:0,runSeed:1,newHi:false};
 try{G.hi=parseInt(localStorage.getItem('xenomarine_hi'))||0;}catch(e){}
 let world=null,P=null,flow=null,flowQ=null;
 let enemies=[],bullets=[],eproj=[],parts=[],pickups=[],nades=[],popups=[],flames=[],flashes=[];
@@ -519,28 +519,31 @@ function killPlayer(){
 }
 
 // ===================== JUGADOR =====================
-const K=k=>!!keys[k];
+const K=k=>!!(keys[k]||padKeys[k]);
 function updatePlayer(dt){
  const plat=world.mode==='plat';
- const L=K('a')||K('arrowleft'),Rt=K('d')||K('arrowright'),U=K('w')||K('arrowup'),D=K('s')||K('arrowdown');
+ const L=K('a'),Rt=K('d'),U=K('w'),D=K('s');
+ const kfire=aimInput();
  P.inv-=dt;P.cd-=dt;P.ncd-=dt;P.mflash-=dt;
  const ox=P.x+P.w/2,oy=plat?P.y+8:P.y+P.h/2;
- P.aim=Math.atan2(mouse.y+G.camy-oy,mouse.x+G.camx-ox);P.face=Math.cos(P.aim)>=0?1:-1;
+ if(aimMode!=='mouse'){mouse.x=clamp(ox-G.camx+Math.cos(G.kaim)*70,0,W-1);mouse.y=clamp(oy-G.camy+Math.sin(G.kaim)*70,0,H-1);P.aim=G.kaim;}
+ else P.aim=Math.atan2(mouse.y+G.camy-oy,mouse.x+G.camx-ox);
+ P.face=Math.cos(P.aim)>=0?1:-1;
  if(!plat){
-  const mx=(Rt?1:0)-(L?1:0),my=(D?1:0)-(U?1:0),m=Math.hypot(mx,my)||1;
+  let mx=(Rt?1:0)-(L?1:0),my=(D?1:0)-(U?1:0);if(pad){mx+=pad.mx;my+=pad.my;}const m=Math.max(1,Math.hypot(mx,my));
   const onAcid=tget(Math.floor(ox/TS),Math.floor(oy/TS))===T.ACID;
   let spd=95;if(onAcid)spd*=0.6;if(P.flaming)spd*=0.85;
   const k=Math.min(1,dt*14);P.vx+=(mx/m*spd-P.vx)*k;P.vy+=(my/m*spd-P.vy)*k;
   moveBox(P,P.vx*dt,P.vy*dt,false);if(mx||my)P.anim+=dt*10;
   if(onAcid){P.acidT-=dt;if(Math.random()<dt*10)parts.push({x:ox+rand(-5,5),y:oy+rand(-5,5),vx:0,vy:-10,life:0.4,max:0.4,c:'#9dff6a',sz:1,glow:true});if(P.acidT<=0){hurt(5,null,null,true);P.inv=0;P.acidT=0.35;}}
  }else{
-  const dir=(Rt?1:0)-(L?1:0);
+  let dir=(Rt?1:0)-(L?1:0);if(!dir&&pad&&Math.abs(pad.mx)>0.3)dir=Math.sign(pad.mx);
   if(dir)P.vx=approach(P.vx,dir*105,(P.ground?1000:700)*dt);else P.vx=approach(P.vx,0,(P.ground?1200:300)*dt);
   P.vy=Math.min(P.vy+950*dt,520);
   const jumpKey=U||K(' ');
-  if(pressed['w']||pressed['arrowup']||pressed[' '])P.jbuf=0.12;else P.jbuf-=dt;
+  if(pressed['w']||pressed[' '])P.jbuf=0.12;else P.jbuf-=dt;
   if(P.ground)P.coyote=0.1;else P.coyote-=dt;
-  if(D&&(pressed['s']||pressed['arrowdown'])&&P.ground&&tget(Math.floor(ox/TS),Math.floor((P.y+P.h+2)/TS))===T.PLAT)P.drop=0.25;
+  if(D&&pressed['s']&&P.ground&&tget(Math.floor(ox/TS),Math.floor((P.y+P.h+2)/TS))===T.PLAT)P.drop=0.25;
   P.drop-=dt;
   if(P.jbuf>0&&P.coyote>0){P.vy=-340;P.jbuf=0;P.coyote=0;SFX.jump();for(let i=0;i<5;i++)parts.push({x:ox+rand(-4,4),y:P.y+P.h,vx:rand(-30,30),vy:rand(-20,0),life:0.3,max:0.3,c:'#3a2a40',sz:2,drag:4,fade:true});}
   if(!jumpKey&&P.vy<-130)P.vy=-130;
@@ -558,7 +561,7 @@ function updatePlayer(dt){
  if(pressed['r']&&P.weapon===0&&P.mag<40)startReload();
  if(P.reload>0){P.reload-=dt;if(P.reload<=0)P.mag=40;}
  P.flaming=false;
- if(mouse.down)fire(dt);
+ if(mouse.down||kfire)fire(dt);
  if(!P.flaming)P.fuel=Math.min(100,P.fuel+2*dt);
  setFlame(P.flaming);
  if(pressed['rmb']||pressed['g']||pressed['e'])throwNade();
@@ -586,6 +589,25 @@ function throwNade(){
  const plat=world.mode==='plat',ox=P.x+P.w/2,oy=plat?P.y+8:P.y+P.h/2,ca=Math.cos(P.aim),sa=Math.sin(P.aim);
  if(!plat){const dist=Math.min(Math.hypot(mouse.x+G.camx-ox,mouse.y+G.camy-oy),170),Tf=clamp(dist/190,0.3,0.9),v=dist/Tf;nades.push({x:ox,y:oy,vx:ca*v,vy:sa*v,z:0.1,vz:0.5*420*Tf,fuse:Tf+0.6,rot:0});}
  else nades.push({x:ox+ca*6,y:oy+sa*6,vx:ca*250+P.vx*0.5,vy:sa*250-60,z:0,vz:0,fuse:1.4,rot:0});
+}
+
+// ---------- apuntado por teclado / mando ----------
+let aimMode='mouse',pad=null;const padKeys={};
+function aimInput(){
+ let ax=(K('arrowright')?1:0)-(K('arrowleft')?1:0),ay=(K('arrowdown')?1:0)-(K('arrowup')?1:0),fire=false;
+ if(ax||ay){aimMode='keys';fire=true;G.kaim=Math.atan2(ay,ax);}
+ if(pad){if(pad.aimMag>0.35){aimMode='pad';G.kaim=Math.atan2(pad.ay,pad.ax);}if(pad.fire){fire=true;if(aimMode==='mouse'&&pad.aimMag<=0.35&&Math.hypot(pad.mx,pad.my)>0.3){aimMode='pad';G.kaim=Math.atan2(pad.my,pad.mx);}}}
+ return fire;
+}
+function pollPad(){
+ const gps=navigator.getGamepads?navigator.getGamepads():[];let g=null;for(const p of gps)if(p&&p.connected){g=p;break;}
+ if(!g){pad=null;for(const k in padKeys)padKeys[k]=false;return;}
+ const dz=v=>Math.abs(v||0)<0.2?0:v,b=i=>!!(g.buttons[i]&&(g.buttons[i].pressed||g.buttons[i].value>0.5));
+ pad={mx:dz(g.axes[0]),my:dz(g.axes[1]),ax:dz(g.axes[2]),ay:dz(g.axes[3])};
+ if(b(14))pad.mx=-1;if(b(15))pad.mx=1;if(b(12))pad.my=-1;if(b(13))pad.my=1;
+ pad.aimMag=Math.hypot(pad.ax,pad.ay);pad.fire=b(7)||b(5);
+ const map={' ':b(0),q:b(1)||b(4),r:b(2),g:b(6)||b(3),p:b(9),enter:b(9),s:pad.my>0.6};
+ for(const k in map){if(map[k]&&!padKeys[k])pressed[k]=true;padKeys[k]=map[k];}
 }
 
 // ===================== ACTUALIZACIÓN =====================
@@ -965,8 +987,8 @@ function drawTitle(){
   for(let i=0;i<4;i++){ctx.fillStyle=((G.t*6|0)+i)%4===0?'#7dff3a':'#2a7d14';ctx.fillRect((x-w/2+3+i*(w-6)/3)|0,y+1,1,1);}}
  text('XENO',W/2,26,'#7dff3a',7,'center','#0a3a0a');text('MARINE',W/2,66,'#e8f0d0',4,'center','#333');
  text('DEFENSA DE LA TIERRA',W/2,90,'#ffd23a',1,'center');
- const L=[['WASD','MOVERSE'],['RATON','APUNTAR'],['CLIC IZQ','DISPARAR'],['CLIC DER / G','GRANADA'],['1 2 Q RUEDA','CAMBIAR ARMA'],['R','RECARGAR'],['W / ESPACIO','SALTAR (COLMENA)'],['S','BAJAR PLATAFORMA'],['P / M','PAUSA / SONIDO']];
- L.forEach((l,i)=>{text(l[0],W/2-6,106+i*8,'#7fe6ff',1,'right');text(l[1],W/2+6,106+i*8,'#c8d0c0',1,'left');});
+ const L=[['WASD','MOVERSE'],['RATON + CLIC','APUNTAR Y DISPARAR'],['FLECHAS','APUNTAR Y DISPARAR'],['CLIC DER / G','GRANADA'],['1 2 Q RUEDA','CAMBIAR ARMA'],['R','RECARGAR'],['W / ESPACIO','SALTAR (COLMENA)'],['S','BAJAR PLATAFORMA'],['P / M','PAUSA / SONIDO'],['MANDO','COMPATIBLE']];
+ L.forEach((l,i)=>{text(l[0],W/2-6,100+i*8,'#7fe6ff',1,'right');text(l[1],W/2+6,100+i*8,'#c8d0c0',1,'left');});
  if((G.t*2|0)%2)text('HAZ CLIC PARA DESPLEGAR',W/2,H-18,'#fff',1,'center');
  text('RECORD '+G.hi,W-5,5,'#7a8a7a',1,'right');
 }
@@ -1023,8 +1045,8 @@ const keys={};let pressed={};const mouse={x:W/2,y:H/2,down:false};
 addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(!keys[k])pressed[k]=true;keys[k]=true;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(k))e.preventDefault();auInit();});
 addEventListener('keyup',e=>{keys[e.key.toLowerCase()]=false;});
 function mpos(e){const r=scr.getBoundingClientRect();mouse.x=clamp((e.clientX-r.left)/r.width*W,0,W-1);mouse.y=clamp((e.clientY-r.top)/r.height*H,0,H-1);}
-addEventListener('mousemove',mpos);
-scr.addEventListener('mousedown',e=>{mpos(e);auInit();if(e.button===0){mouse.down=true;pressed['lmb']=true;}else if(e.button===2)pressed['rmb']=true;e.preventDefault();});
+addEventListener('mousemove',e=>{if(Math.abs(e.movementX||0)+Math.abs(e.movementY||0)>0)aimMode='mouse';mpos(e);});
+scr.addEventListener('mousedown',e=>{aimMode='mouse';mpos(e);auInit();if(e.button===0){mouse.down=true;pressed['lmb']=true;}else if(e.button===2)pressed['rmb']=true;e.preventDefault();});
 addEventListener('mouseup',e=>{if(e.button===0)mouse.down=false;});
 scr.addEventListener('contextmenu',e=>e.preventDefault());
 scr.addEventListener('wheel',e=>{if(G.state==='play'&&P)setWeapon(1-P.weapon);e.preventDefault();},{passive:false});
@@ -1033,6 +1055,7 @@ addEventListener('blur',()=>{mouse.down=false;for(const k in keys)keys[k]=false;
 // ===================== BUCLE =====================
 let last=performance.now();
 function update(dt){
+ pollPad();
  G.t+=dt;G.frame++;G.shake=Math.max(0,G.shake-dt*22);G.hurtFlash=Math.max(0,G.hurtFlash-dt);
  if(pressed['m'])toggleMute();
  switch(G.state){
@@ -1040,7 +1063,7 @@ function update(dt){
   case'play':if(pressed['escape']||pressed['p']){G.state='pause';setFlame(false);break;}updateGame(dt);break;
   case'pause':if(pressed['escape']||pressed['p'])G.state='play';break;
   case'trans':updateTrans(dt);break;
-  case'dead':G.deadT+=dt;updateParts(dt);updateEnemies(dt);if(G.deadT>1.2&&(pressed['lmb']||pressed['enter']))startGame();break;
+  case'dead':G.deadT+=dt;updateParts(dt);updateEnemies(dt);if(G.deadT>1.2&&(pressed['lmb']||pressed['enter']||pressed[' ']))startGame();break;
  }
 }
 function frame(now){
