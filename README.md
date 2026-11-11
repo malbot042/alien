@@ -1,5 +1,7 @@
 # XENO MARINE · Defensa de la Tierra
 
+## ▶ [Jugar ahora: https://malbot042.github.io/alien/](https://malbot042.github.io/alien/)
+
 Shooter retro en un único `index.html` (sin dependencias). Eres un marine que frena una invasión alienígena en un recorrido **infinito** que alterna:
 
 - **Superficie** (vista cenital): avanza hacia el norte por bases en ruinas hasta la escotilla de descenso.
@@ -30,6 +32,9 @@ Rastreros, escupidores de ácido, brutos que embisten, voladores (colmena) y nid
 | M | Sonido |
 
 ## Jugar
-Abre `index.html` en el navegador, o activa GitHub Pages (Settings → Pages → rama `main`, carpeta raíz).
+- **Online (GitHub Pages):** https://malbot042.github.io/alien/
+- **Local:** descarga el repositorio y abre `index.html` en el navegador.
+
+> Para que la URL funcione, GitHub Pages debe estar activado en Settings → Pages → *Deploy from a branch* → rama `main`, carpeta `/ (root)`.
 
 Pantalla CRT plana: scanlines, rejilla RGB, aberración cromática, bloom y ruido, sin curvatura.
