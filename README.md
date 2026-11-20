@@ -2,24 +2,52 @@
 
 ## ▶ [Jugar ahora: https://malbot042.github.io/alien/](https://malbot042.github.io/alien/)
 
-Shooter retro en vista cenital en un único `index.html` (sin dependencias). Eres un marine que frena una invasión alienígena en un recorrido **infinito** de sectores: sobrevive a las oleadas y alcanza la escotilla de extracción de cada uno.
+Shooter retro con vista cenital en un único `index.html`, sin dependencias. Eres un marine que frena una invasión alienígena en un recorrido **infinito** de sectores. En cada uno tienes que cumplir el objetivo, derrotar al jefe que custodia la salida y alcanzar la escotilla de extracción. Entre sector y sector puedes mejorar tu equipo en la armería.
+
+Se juega con teclado y ratón, con mando o en el móvil con controles táctiles. La pantalla imita un CRT plano: líneas de barrido, rejilla RGB, separación de colores, brillo difuso y ruido, sin curvatura.
 
 ## Ambientes
-Cada sector tiene su propio escenario, con mapa, obstáculos, peligros y clima distintos. El ciclo se repite cada vez más difícil:
+Cada sector tiene su propio escenario, con mapa, obstáculos, peligros, clima, música y jefe distintos. El ciclo se repite, cada vez más difícil:
 
-| Sector | Ambiente | Mapa | Peligro | Ambiente |
-|---|---|---|---|---|
-| 1 | Base en ruinas | Edificios derruidos | Ácido | Ceniza |
-| 2 | Selva | Jungla orgánica, árboles | Pantano tóxico | Lluvia y relámpagos |
-| 3 | Búnker militar | Salas y pasillos | Residuo radiactivo | Alarma roja |
-| 4 | Interior de la montaña | Cuevas y cristales | Lava | Polvo |
-| 5 | Casco de la nave nodriza | Placas alienígenas, huevos | Ácido | Esporas |
-| 6 | Entrañas de la nave | Salas orgánicas, más nidos | Ácido alienígena | Esporas |
+| Sector | Ambiente | Mapa | Peligro | Clima | Jefe |
+|---|---|---|---|---|---|
+| 1 | Base en ruinas | Edificios derruidos | Ácido | Ceniza | Tanque infectado |
+| 2 | Selva | Jungla, árboles | Pantano tóxico | Lluvia y relámpagos | Gusano devorador |
+| 3 | Búnker militar | Salas y pasillos, torretas | Residuo radiactivo | Alarma roja | Meca parasitado |
+| 4 | Interior de la montaña | Cuevas y cristales | Lava | Polvo | Gusano de lava |
+| 5 | Casco de la nave nodriza | Placas alienígenas, torretas | Ácido | Esporas | Guardián del casco |
+| 6 | Entrañas de la nave | Salas orgánicas, más nidos | Ácido alienígena | Esporas | Reina alienígena |
 
-Cada sector superado sube la dificultad: más enemigos, más resistentes y más rápidos. Los mapas se generan proceduralmente en cada partida.
+Los mapas se generan proceduralmente en cada partida.
+
+## Objetivos
+El sector 1 solo pide llegar a la extracción. En los demás toca uno de estos objetivos, y la escotilla no se abre hasta cumplirlo y derrotar al jefe:
+- **Destruir todos los nidos.**
+- **Rescatar marines atrapados.** Quédate a su lado para liberarlos; después te siguen y disparan a los alienígenas.
+- **Activar terminales.** Quédate junto a cada una unos segundos.
+- **Resistir.** Tras vencer al jefe, aguanta 30 segundos de oleadas hasta que llegue la extracción.
+
+## Armas
+| Tecla | Arma | Cómo se consigue |
+|---|---|---|
+| 1 | Fusil M41 (MK1 a MK3) | Desde el principio; se mejora con chips azules o en la armería |
+| 2 | Lanzallamas | Desde el principio; el combustible se recarga solo o con bidones |
+| 3 | Escopeta | Cajas, enemigos grandes y el mapa |
+| 4 | Plasma rebotador (atraviesa enemigos) | Cajas, enemigos grandes y el mapa |
+| 5 | Lanzacohetes | Cajas, enemigos grandes y el mapa |
+
+Las **granadas** rebotan y destruyen cajas y nidos.
+
+## Armería entre sectores
+Los alienígenas abatidos y los sectores superados dan **créditos**. Al acabar cada sector puedes gastarlos en:
+- **Mejoras permanentes:** vida máxima, armadura, cargador ampliado, velocidad y mejora del fusil.
+- **Consumibles:** granadas, botiquín y munición especial.
+
+## Enemigos
+Rastreros que intentan rodearte, escupidores que buscan cobertura cuando les apuntas, brutos que embisten, nidos que generan crías, kamikazes que explotan, excavadores que van bajo tierra (selva y montaña), torretas (búnker y nave) y portadores que sueltan crías al morir.
 
 ## Dificultad
-Se elige en la pantalla de título (clic, ←/→ o 1/2/3). Cada dificultad guarda su propio récord.
+Se elige en la pantalla de título con clic, ←/→, 1/2/3 o la cruceta del mando.
 
 | | Fácil | Medio | Difícil |
 |---|---|---|---|
@@ -30,39 +58,53 @@ Se elige en la pantalla de título (clic, ←/→ o 1/2/3). Cada dificultad guar
 | Objetos que sueltan los enemigos | Más | Normal | Menos |
 | Puntos | ×0,75 | ×1 | ×1,5 |
 
-## Lectura del terreno
-- **Muros y obstáculos** (árboles, roca, hormigón…): contorno negro y sombra proyectada; no se pueden atravesar.
-- **Suelo peligroso** (ácido, pantano, radiación, lava): borde luminoso que parpadea y señales de aviso amarillas. Quita vida mientras lo pisas y aparece un aviso en pantalla.
-- **Baba alienígena** (manchas moradas): solo decorativa, se puede pisar sin daño.
-
-## Armas
-- **Fusil M41** (principal): cargador de 40, se mejora hasta MK3 (doble y triple disparo) con los chips azules.
-- **Lanzallamas**: daño continuo y quema a los enemigos; el combustible se recarga despacio o con bidones.
-- **Granadas**: rebotan, destruyen cajas y nidos.
-
-## Enemigos
-Rastreros, escupidores de ácido, brutos que embisten y nidos que generan crías.
+## Récords
+Cada dificultad guarda su propio **top 10 arcade** con iniciales de tres letras. Se ven en la pantalla de muerte y, alternándose con los controles, en la de título. Se guardan en tu navegador.
 
 ## Controles
-| Tecla | Acción |
+| Teclado y ratón | Acción |
 |---|---|
 | WASD | Moverse |
 | Ratón + clic izquierdo | Apuntar y disparar |
-| Flechas | Apuntar y disparar (sin ratón, ideal con touchpad) |
+| Flechas | Apuntar y disparar sin ratón (útil con touchpad) |
+| Shift / Espacio | Esquiva (invulnerable un instante; sirve para cruzar suelo peligroso) |
 | Clic derecho / G | Granada |
-| 1 / 2 / Q / rueda | Cambiar arma |
+| 1–5, Q, rueda | Cambiar de arma |
 | R | Recargar |
 | P / Esc | Pausa |
 | M | Sonido |
+| N | Mostrar u ocultar el minimapa |
 
-**Mando (gamepad):** stick izquierdo / cruceta mover · stick derecho apuntar · RT/RB disparar · LT/Y granada · B/LB cambiar arma · X recargar · Start pausa.
+**Mando:**
+- Stick izquierdo o cruceta: moverse.
+- Stick derecho: apuntar.
+- RT/RB: disparar.
+- A: esquivar.
+- LT/Y: granada.
+- B/LB: cambiar de arma.
+- X: recargar.
+- Start: pausa.
 
-> **¿Usas touchpad?** Muchos portátiles desactivan el touchpad mientras se pulsan teclas ("rechazo de palma"), así que no podrás mover el puntero y caminar a la vez. Usa las **flechas** para apuntar/disparar, un ratón externo o un mando, o desactiva esa opción en los ajustes del touchpad del sistema.
+**Móvil** (en horizontal):
+- Mitad izquierda de la pantalla: joystick de movimiento.
+- Mitad derecha: joystick de apuntado; dispara mientras arrastras.
+- Botones: ESQ (esquiva), GRN (granada), ARM (cambiar arma) y II (pausa).
 
-## Jugar
-- **Online (GitHub Pages):** https://malbot042.github.io/alien/
-- **Local:** descarga el repositorio y abre `index.html` en el navegador.
+> **¿Usas touchpad?** Muchos portátiles lo desactivan mientras se pulsan teclas, así que no podrás mover el puntero y caminar a la vez. Usa las **flechas** para apuntar y disparar, un ratón externo o un mando.
 
-> Para que la URL funcione, GitHub Pages debe estar activado en Settings → Pages → *Deploy from a branch* → rama `main`, carpeta `/ (root)`.
+## Lectura del terreno
+- **Muros y obstáculos** (árboles, roca, hormigón…): contorno negro y sombra proyectada. No se pueden atravesar.
+- **Suelo peligroso:** borde luminoso que parpadea y señales de aviso amarillas. Quita vida mientras lo pisas y aparece un aviso en pantalla.
+- **Baba alienígena** (manchas moradas): solo decorativa, se puede pisar sin daño.
+- **Minimapa** (arriba a la derecha):
+  - verde: salida;
+  - morado: nidos;
+  - naranja: torretas;
+  - amarillo: objetos y terminales;
+  - azul: marines aliados;
+  - rojo: enemigos activos.
 
-Pantalla CRT plana: scanlines, rejilla RGB, aberración cromática, bloom y ruido, sin curvatura.
+## Jugar en local
+Descarga el repositorio y abre `index.html` en el navegador.
+
+> Para que la dirección de GitHub Pages funcione, Pages debe estar activado en **Settings → Pages → Deploy from a branch → rama `main`, carpeta `/ (root)`**.
