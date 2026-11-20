@@ -2,7 +2,19 @@
 
 ## ▶ [Jugar ahora: https://malbot042.github.io/alien/](https://malbot042.github.io/alien/)
 
-Shooter retro en vista cenital en un único `index.html` (sin dependencias). Eres un marine que frena una invasión alienígena en un recorrido **infinito** de sectores: avanza hacia el norte por bases en ruinas, sobrevive a las oleadas y alcanza la escotilla de extracción.
+Shooter retro en vista cenital en un único `index.html` (sin dependencias). Eres un marine que frena una invasión alienígena en un recorrido **infinito** de sectores: sobrevive a las oleadas y alcanza la escotilla de extracción de cada uno.
+
+## Ambientes
+Cada sector tiene su propio escenario, con mapa, obstáculos, peligros y clima distintos. El ciclo se repite cada vez más difícil:
+
+| Sector | Ambiente | Mapa | Peligro | Ambiente |
+|---|---|---|---|---|
+| 1 | Base en ruinas | Edificios derruidos | Ácido | Ceniza |
+| 2 | Selva | Jungla orgánica, árboles | Pantano tóxico | Lluvia y relámpagos |
+| 3 | Búnker militar | Salas y pasillos | Residuo radiactivo | Alarma roja |
+| 4 | Interior de la montaña | Cuevas y cristales | Lava | Polvo |
+| 5 | Casco de la nave nodriza | Placas alienígenas, huevos | Ácido | Esporas |
+| 6 | Entrañas de la nave | Salas orgánicas, más nidos | Ácido alienígena | Esporas |
 
 Cada sector superado sube la dificultad: más enemigos, más resistentes y más rápidos. Los mapas se generan proceduralmente en cada partida.
 
