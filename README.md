@@ -74,6 +74,7 @@ Cada dificultad guarda su propio **top 10 arcade** con iniciales de tres letras.
 | P / Esc | Pausa |
 | M | Sonido |
 | N | Mostrar u ocultar el minimapa |
+| Z | Zoom de cámara: cerca, normal, lejos (por defecto) o muy lejos |
 
 **Mando:**
 - Stick izquierdo o cruceta: moverse.
@@ -88,7 +89,7 @@ Cada dificultad guarda su propio **top 10 arcade** con iniciales de tres letras.
 **Móvil** (en horizontal):
 - Mitad izquierda de la pantalla: joystick de movimiento.
 - Mitad derecha: joystick de apuntado; dispara mientras arrastras.
-- Botones: ESQ (esquiva), GRN (granada), ARM (cambiar arma) y II (pausa).
+- Botones: ESQ (esquiva), GRN (granada), ARM (cambiar arma), II (pausa) y Z (zoom).
 
 > **¿Usas touchpad?** Muchos portátiles lo desactivan mientras se pulsan teclas, así que no podrás mover el puntero y caminar a la vez. Usa las **flechas** para apuntar y disparar, un ratón externo o un mando.
 
