@@ -18,6 +18,23 @@ Cada sector tiene su propio escenario, con mapa, obstáculos, peligros y clima d
 
 Cada sector superado sube la dificultad: más enemigos, más resistentes y más rápidos. Los mapas se generan proceduralmente en cada partida.
 
+## Dificultad
+Se elige en la pantalla de título (clic, ←/→ o 1/2/3). Cada dificultad guarda su propio récord.
+
+| | Fácil | Medio | Difícil |
+|---|---|---|---|
+| Daño recibido | 55 % | 100 % | 145 % |
+| Vida de los enemigos | 75 % | 100 % | 130 % |
+| Oleadas | Menos frecuentes | Normales | Más frecuentes |
+| Granadas iniciales | 6 | 4 | 3 |
+| Objetos que sueltan los enemigos | Más | Normal | Menos |
+| Puntos | ×0,75 | ×1 | ×1,5 |
+
+## Lectura del terreno
+- **Muros y obstáculos** (árboles, roca, hormigón…): contorno negro y sombra proyectada; no se pueden atravesar.
+- **Suelo peligroso** (ácido, pantano, radiación, lava): borde luminoso que parpadea y señales de aviso amarillas. Quita vida mientras lo pisas y aparece un aviso en pantalla.
+- **Baba alienígena** (manchas moradas): solo decorativa, se puede pisar sin daño.
+
 ## Armas
 - **Fusil M41** (principal): cargador de 40, se mejora hasta MK3 (doble y triple disparo) con los chips azules.
 - **Lanzallamas**: daño continuo y quema a los enemigos; el combustible se recarga despacio o con bidones.
