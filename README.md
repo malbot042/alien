@@ -7,9 +7,9 @@ Shooter retro con vista cenital en un único `index.html`, sin dependencias. Ere
 Se juega con teclado y ratón, con mando o en el móvil con controles táctiles. La pantalla imita un CRT plano: líneas de barrido, rejilla RGB, separación de colores, brillo difuso y ruido, sin curvatura.
 
 ## Ambientes
-Cada sector tiene su propio escenario, con mapa, obstáculos, peligros, clima, música y jefe distintos. El ciclo se repite, cada vez más difícil:
+Cada sector tiene su propio escenario, con mapa, obstáculos, peligros, clima, música y jefe distintos. **El orden de los ambientes se baraja en cada partida**, así que nunca se empieza en el mismo sitio. Cada ciclo recorre los seis sin repetir y luego vuelve a empezar, cada vez más difícil:
 
-| Sector | Ambiente | Mapa | Peligro | Clima | Jefe |
+| # | Ambiente | Mapa | Peligro | Clima | Jefe |
 |---|---|---|---|---|---|
 | 1 | Base en ruinas | Edificios derruidos | Ácido | Ceniza | Tanque infectado |
 | 2 | Selva | Jungla, árboles | Pantano tóxico | Lluvia y relámpagos | Gusano devorador |
@@ -18,7 +18,7 @@ Cada sector tiene su propio escenario, con mapa, obstáculos, peligros, clima, m
 | 5 | Casco de la nave nodriza | Placas alienígenas, torretas | Ácido | Esporas | Guardián del casco |
 | 6 | Entrañas de la nave | Salas orgánicas, más nidos | Ácido alienígena | Esporas | Reina alienígena |
 
-Los mapas se generan proceduralmente en cada partida.
+Además, cada mapa se genera al azar: ni siquiera el mismo ambiente se repite igual.
 
 ## Objetivos
 El sector 1 solo pide llegar a la extracción. En los demás toca uno de estos objetivos, y la escotilla no se abre hasta cumplirlo y derrotar al jefe:

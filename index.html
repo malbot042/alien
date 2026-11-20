@@ -263,7 +263,12 @@ THEMES.forEach((th,i)=>{const sd=1000+i*97;
   wall:T16((x,R)=>wallStyle(x,R,th.wall,false),sd+20),wallF:T16((x,R)=>wallStyle(x,R,th.wall,true),sd+21),
   crate:th.crate==='box'?TL.crate:[0,1].map(v=>T16((x,R)=>crateStyle(x,R,th.crate,v),sd+30+v))};});
 let TH=THEMES[0];
-const themeFor=sec=>THEMES[(sec-1)%THEMES.length];
+function themeFor(sec){
+ // orden de ambientes barajado por partida; cada ciclo de 6 los recorre todos sin repetir el ambiente anterior
+ if(!G.tOrder)G.tOrder=[];
+ while(G.tOrder.length<sec){const o=THEMES.map((_,i)=>i);for(let i=o.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[o[i],o[j]]=[o[j],o[i]];}
+  if(G.tOrder.length&&o[0]===G.tOrder[G.tOrder.length-1])[o[0],o[o.length-1]]=[o[o.length-1],o[0]];G.tOrder.push(...o);}
+ return THEMES[G.tOrder[sec-1]];}
 function decorate(R){
  const d=world.dctx,w=world.w,h=world.h,n=w*h*0.05|0;
  for(let i=0;i<n;i++){const tx=1+R()*(w-2)|0,ty=2+R()*(h-4)|0;if(world.t[ty*w+tx]!==T.EMPTY)continue;const X=tx*TS+2+(R()*9|0),Y=ty*TS+2+(R()*9|0),r=R();
@@ -1009,7 +1014,7 @@ function buildSection(){
  G.msgT=3.2;
 }
 function nextSection(){G.section++;G.sector++;P.nades=Math.min(9,P.nades+1);buildSection();if(G.bonus)popup(P.x+P.w/2,P.y-10,'BONUS +'+G.bonus,'#7fe6ff');}
-function startGame(){auInit();loadHi();G.sector=1;G.section=0;G.score=0;G.kills=0;G.bonus=0;G.cred=0;G.runSeed=Math.random()*1e9|0;G.newHi=false;newPlayer();P.nades=DF.nades;buildSection();G.state='play';}
+function startGame(){auInit();loadHi();G.sector=1;G.section=0;G.score=0;G.kills=0;G.bonus=0;G.cred=0;G.runSeed=Math.random()*1e9|0;G.tOrder=[];G.newHi=false;newPlayer();P.nades=DF.nades;buildSection();G.state='play';}
 
 // ===================== RENDER =====================
 function drawAcid(X,Y,tx,ty,surf){
